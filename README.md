@@ -4,7 +4,7 @@ Takes 4 bands as input, and outputs water mask.
 # Training the Model
 1. Download `segtrain_data.zip` and unzip to `segtrain_data` folder that contains training data from [here](https://drive.google.com/file/d/18HCXhSLyRXisK3F9091QnMONSJ8yMIZq/view?usp=drive_link)
 2. Run the following to run the model training:
-``` python train_seg.py --model_type "lraspp" --input_type "4band"```
+``` python train_seg.py --model_type "deeplab_mobilenet" --input_type "4band"```
 
 # Running the model on new samples
 1. Download pre-trained model [here](https://drive.google.com/file/d/1mA1xyg8h1pxWnBH53bAadadZxMw-zGxM/view?usp=drive_link)
