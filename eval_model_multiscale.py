@@ -72,7 +72,7 @@ def get_f1(y_pred, y_true):
     return 2 * ((precision * recall) / (precision + recall + EPS))
 
 
-def get_prediction_from_chunks(model, crop_size, input_data, thresh=opt.thresh):
+def get_prediction_from_chunks(model, crop_size, input_data, thresh):
     model.eval()
     pred_out_img = None
     ctr = 1
@@ -109,17 +109,17 @@ if __name__ == "__main__":
 
     is_rgb = False
     model = Model4Band(model_type=model_type).cuda()
-    if opt.crop_size is None:
-        crop_size = model.crop_size
-    else:
-        crop_size = opt.crop_size
+    # if opt.crop_size is None:
+    #     crop_size = model.crop_size
+    # else:
+    #     crop_size = opt.crop_size
     if opt.with_transforms==1:
         trans = transforms.Compose([
             transforms.Normalize((0.485, 0.456, 0.406, 0.485), (0.229, 0.224, 0.225, 0.229)),
         ])
     else:
         trans = None
-    logger.debug(f"Using model: {model_type} with crop_size: {crop_size}. trans: {trans}")
+    logger.debug(f"Using model: {model_type}")
     ckpt = torch.load(opt.ckpt_path)
     tmp = model.load_state_dict(ckpt["state_dict"])
     logger.debug(f"Loaded model checkpoint: {tmp}")
