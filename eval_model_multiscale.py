@@ -109,10 +109,6 @@ if __name__ == "__main__":
 
     is_rgb = False
     model = Model4Band(model_type=model_type).cuda()
-    # if opt.crop_size is None:
-    #     crop_size = model.crop_size
-    # else:
-    #     crop_size = opt.crop_size
     if opt.with_transforms==1:
         trans = transforms.Compose([
             transforms.Normalize((0.485, 0.456, 0.406, 0.485), (0.229, 0.224, 0.225, 0.229)),
@@ -136,7 +132,6 @@ if __name__ == "__main__":
     input_data = input_dataset.read()   # (4, x, y) -- (C,H,W)
     _, s1,s2 = input_data.shape
 
-    # pred_out_img = get_prediction_from_chunks(model, crop_size, input_data, thresh=opt.thresh)
     pred_imgs = []
     for mult_crop_size in [768, 1024, 1600, 2048]:
         tmp_pred_out_img = get_prediction_from_chunks(model, mult_crop_size, input_data, thresh=0.9) # high threshold
@@ -160,7 +155,3 @@ if __name__ == "__main__":
 
     with rasterio.open(out_name_tif, 'w', **kwargs) as dst:
         dst.write_band(1, pred_out_img.astype(rasterio.float32))
-
-
-# TODO: try multi-scle and merge outputs
-# (e.g., crop sizes 768, 1024 and merge into one output) and maybe set threshold high (~0.8 or 0.7) to only get high confidence areas
