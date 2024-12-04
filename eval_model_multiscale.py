@@ -41,7 +41,7 @@ opt = parser.parse_args()
 EPS = 1e-7
 def preprocess_input(input_chunk, trans):
     image = torch.from_numpy(input_chunk[:,:,:])
-    image = image/255.   # normalize 0 to 1
+    # image = image/255.   # normalize 0 to 1
     if trans is not None:
         image = trans(image)
     return image.type(torch.FloatTensor)
@@ -130,6 +130,12 @@ if __name__ == "__main__":
     
     input_dataset = rasterio.open(fp)
     input_data = input_dataset.read()   # (4, x, y) -- (C,H,W)
+
+    tmp = input_data[:3, :, :]
+    input_data[:3, :, :] = tmp[::-1, :, :]  # data is BGRA, so change to RGBA
+    rgb = np.transpose(input_data[:3, :, :], (1,2,0))
+    input_data = input_data/np.max(input_data)  # NOTE: Added for new raw planet data
+    
     _, s1,s2 = input_data.shape
 
     pred_imgs = []

@@ -151,3 +151,7 @@ if __name__ == "__main__":
 
     with rasterio.open(out_name_tif, 'w', **kwargs) as dst:
         dst.write_band(1, pred_out_img.astype(rasterio.float32))
+
+
+# TODO: try multi-scle and merge outputs
+# (e.g., crop sizes 768, 1024 and merge into one output) and maybe set threshold high (~0.8 or 0.7) to only get high confidence areas

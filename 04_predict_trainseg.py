@@ -9,8 +9,8 @@ import argparse
 from loguru import logger
 import torch.optim as optim
 from torch.utils.data.dataset import Dataset
-import torchmetrics
-from torchmetrics.classification import BinaryJaccardIndex
+# import torchmetrics
+# from torchmetrics.classification import BinaryJaccardIndex
 
 import os
 import torch
@@ -29,7 +29,7 @@ import math
 from models import Model4Band
 
 import rasterio
-from lang_sam import LangSAM    # See https://github.com/luca-medeiros/lang-segment-anything
+# from lang_sam import LangSAM    # See https://github.com/luca-medeiros/lang-segment-anything
 from PIL import Image
 import matplotlib.pyplot as plt
 import cv2
@@ -149,9 +149,10 @@ if __name__ == "__main__":
 
     # fp = "Connecticut_20230706_01.tif"
     fp = all_fps[opt.i]
+    fp = os.path.join("/scratch/workspace/rdaroya_umass_edu-water/segment-anything/", fp)
 
 
-    # TODO: add output data and compute metrics
+    # Add output data and compute metrics
     out_data = None
     out_data_fp = None
     key = fp.split("/")[-1]
@@ -223,7 +224,6 @@ if __name__ == "__main__":
     out_3channel = np.stack((pred_out_img,pred_out_img,pred_out_img), axis=-1)
     cv2.imwrite(f"{out_name}", out_3channel*255)
 
-    # TODO: write output as tif file with same format as input
     # Write to TIFF
     kwargs = input_dataset.meta
     kwargs.update(

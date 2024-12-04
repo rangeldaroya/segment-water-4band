@@ -37,7 +37,7 @@ parser.add_argument('--loss_type', default="bce", type=str, help='Type of loss t
 parser.add_argument('--lr', default=1e-4, type=float, help='Learning rate to use')
 # parser.add_argument('--thresh', default=0.35, type=float, help='Confidence threshold')
 parser.add_argument('--batch_size', default=32, type=int, help='Batch size')
-parser.add_argument('--num_epochs', default=100, type=int, help='Num of epochs for training')
+parser.add_argument('--num_epochs', default=10, type=int, help='Num of epochs for training')
 
 # TODO: make a 4-band version (standardize img values), and a 3-band version
 
